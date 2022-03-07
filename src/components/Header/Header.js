@@ -7,6 +7,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import categories from "../../data/Category";
+import { debounce } from "lodash";
 
 function Header({
   category,
@@ -31,6 +32,10 @@ function Header({
     setMeanings([]);
   };
 
+  const handleText = debounce((text) => {
+    setWord(text);
+  }, 500);
+
   return (
     <div className="header">
       <span className="title">{word ? word : "Dictionary App"}</span>
@@ -39,8 +44,8 @@ function Header({
           <TextField
             className="search"
             label="Search a word"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
+            // value={word}
+            onChange={(e) => handleText(e.target.value)}
           />
 
           <TextField
